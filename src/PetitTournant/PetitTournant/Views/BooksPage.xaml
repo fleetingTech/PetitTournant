@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PetitTournant.Views.BooksPage"
+             Title="{Binding PageTitle}">
+    <ContentPage.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="LightSkyBlue" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+
+        <StackLayout Orientation="Vertical">
+            <StackLayout Orientation="Horizontal">
+                <Button Text="{Binding CreateCookBookText}" Clicked="CreateCookBookClicked" />
+                <Frame WidthRequest="400" HeightRequest="20" BackgroundColor="Gray">
+                    <Label Text="{x:Binding SelectedCookBook.Name}"/>
+                </Frame>
+            </StackLayout>
+            <CollectionView  ItemsSource="{x:Binding OpenBooks, Mode=TwoWay}" ItemsLayout="VerticalGrid, 2" SelectionMode="Single" SelectionChanged="CookBookSelectionChanged">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.RowSpan="2"
+                                Source="{Binding ImagePath}"
+                                Aspect="AspectFill"
+                                HeightRequest="60"
+                                WidthRequest="60" />
+                            <Label Grid.Column="1"
+                                Text="{Binding Name}"
+                                FontAttributes="Bold" />
+                            <Label Grid.Row="1"
+                                Grid.Column="1"
+                                Text="{Binding Path}"
+                                FontAttributes="Italic"
+                            VerticalOptions="End" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
