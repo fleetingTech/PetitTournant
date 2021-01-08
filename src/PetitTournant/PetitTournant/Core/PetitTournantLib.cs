@@ -24,5 +24,18 @@ namespace PetitTournant.Core
         {
             return new CookBook(name, path, culture);
         }
+        public IRecipe CreateNewRecipe(string name, CultureInfo culture, List<string> ingredients, List<DietType> diets, List<string> steps, TimeSpan Preperation, TimeSpan CookingTime, TimeSpan RestingTime)
+        {
+
+            return new Recipe(name, culture, ingredients, diets, steps, Preperation, CookingTime, RestingTime);
+        }
+        public DietType getTypeFromString(string str, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+        public string GetStringForDietType(DietType type, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
