@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,9 +16,12 @@ namespace PetitTournant.ViewModels
         public string PageTitle => Localisation.StringLocalisation.BookSelector;
         public string CreateCookBookText => Localisation.StringLocalisation.CreateCookBook;
 
+        private PetitTournantLib Lib; 
+
         public BookModelView()
         {
             this.OpenBooks = new System.Collections.ObjectModel.ObservableCollection<ICookBook>();
+            this.Lib = new PetitTournantLib();
         }
         public System.Collections.ObjectModel.ObservableCollection<ICookBook> OpenBooks { get; private set; }
         public void AddBookToList(ICookBook book)
@@ -43,11 +47,8 @@ namespace PetitTournant.ViewModels
         public void CreateDummyBook()
         {
             a++;
-            var book = new CookBook();
-            book.Name = "dummy book" + a.ToString();
-            book.Path = "dummy path" + a.ToString();
-            book.ImagePath = "";
-            this.AddBookToList(book);
+            var book = this.Lib.CreateCookBook("test" + a.ToString(),CultureInfo.CurrentCulture, "path" + a.ToString());
+            this.OpenBooks.Add(book);            
         }
     }
 }
