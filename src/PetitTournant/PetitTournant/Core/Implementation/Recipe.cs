@@ -34,6 +34,6 @@ namespace PetitTournant.Core
 
         public TimeSpan RestingTime { get; private set; }
 
-        public TimeSpan TotalTime { get { return PreperationTime + CookingTime + RestingTime} }
+        public TimeSpan TotalTime { get { return PreperationTime + CookingTime + RestingTime; } }
     }
 }

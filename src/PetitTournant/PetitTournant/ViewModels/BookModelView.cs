@@ -1,54 +1,51 @@
 ﻿using PetitTournant.Core;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace PetitTournant.ViewModels
 {
     public class BookModelView : BaseViewModel
     {
-        public string PageTitle => Localisation.StringLocalisation.BookSelector;
-        public string CreateCookBookText => Localisation.StringLocalisation.CreateCookBook;
+        public ICookBook Book { get; private set; }
+        public bool IsValidBook { get { return this.ValidateBook(); } }
 
-        private PetitTournantLib Lib; 
-
-        public BookModelView()
+        public BookModelView(ICookBook toEdit)
         {
-            this.OpenBooks = new System.Collections.ObjectModel.ObservableCollection<ICookBook>();
-            this.Lib = new PetitTournantLib();
-        }
-        public System.Collections.ObjectModel.ObservableCollection<ICookBook> OpenBooks { get; private set; }
-        public void AddBookToList(ICookBook book)
-        {
-            this.OpenBooks.Add(book);
-            OnPropertyChanged(nameof(OpenBooks));
+            this.Book = toEdit;
         }
 
-
-        private ICookBook _selectedCookBook = null;
-        public ICookBook SelectedCookBook
+        public string _bookName;
+        public string BookName
         {
             get
-            { return this._selectedCookBook; }
+            { return this.Book.Name; }
             set
             {
-                this._selectedCookBook = value;
-                OnPropertyChanged(nameof(SelectedCookBook));
+                this.Book.Name = value;
+                OnPropertyChanged(nameof(BookName));
             }
         }
 
-        private int a = 0;
-        public void CreateDummyBook()
+
+        public string BookPath
         {
-            a++;
-            var book = this.Lib.CreateCookBook("test" + a.ToString(),CultureInfo.CurrentCulture, "path" + a.ToString());
-            this.OpenBooks.Add(book);            
+            get
+            { return this.Book.Path; }
+            set
+            {
+                this.Book.Path = value;
+                OnPropertyChanged(nameof(BookPath));
+            }
+        }
+
+        private bool ValidateBook()
+        {
+            if(this.Book.Name.Length > 0 && this.Book.Path.Length > 0)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

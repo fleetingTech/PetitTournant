@@ -123,6 +123,12 @@
   <data name="CreateCookBook" xml:space="preserve">
     <value>Create a new Cookbook</value>
   </data>
+  <data name="EditCookBook" xml:space="preserve">
+    <value>Edit selected Cookbook</value>
+  </data>
+  <data name="KetoDietName" xml:space="preserve">
+    <value>Keto</value>
+  </data>
   <data name="KitchenKnowledgeName" xml:space="preserve">
     <value>Kitchen Knowledge</value>
   </data>
@@ -143,5 +149,11 @@
   </data>
   <data name="SelectedBook" xml:space="preserve">
     <value>Selected Book</value>
+  </data>
+  <data name="VeganDietName" xml:space="preserve">
+    <value>Vegan</value>
+  </data>
+  <data name="VegetarienDietName" xml:space="preserve">
+    <value>Vegetarien</value>
   </data>
 </root>

@@ -79,6 +79,24 @@ namespace PetitTournant.Localisation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit selected Cookbook.
+        /// </summary>
+        public static string EditCookBook {
+            get {
+                return ResourceManager.GetString("EditCookBook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keto.
+        /// </summary>
+        public static string KetoDietName {
+            get {
+                return ResourceManager.GetString("KetoDietName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kitchen Knowledge.
         /// </summary>
         public static string KitchenKnowledgeName {
@@ -138,6 +156,24 @@ namespace PetitTournant.Localisation {
         public static string SelectedBook {
             get {
                 return ResourceManager.GetString("SelectedBook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vegan.
+        /// </summary>
+        public static string VeganDietName {
+            get {
+                return ResourceManager.GetString("VeganDietName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vegetarien.
+        /// </summary>
+        public static string VegetarienDietName {
+            get {
+                return ResourceManager.GetString("VegetarienDietName", resourceCulture);
             }
         }
     }

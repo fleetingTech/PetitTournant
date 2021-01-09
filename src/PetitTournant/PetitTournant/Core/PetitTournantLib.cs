@@ -22,20 +22,57 @@ namespace PetitTournant.Core
         }
         public ICookBook CreateCookBook(string name, CultureInfo culture, string path)
         {
-            return new CookBook(name, path, culture);
+            return new Implementation.CookBook(name, path, culture);
+        }
+        public ICookBook GetEmptyCookBook()
+        {
+            return new Implementation.CookBook();
         }
         public IRecipe CreateNewRecipe(string name, CultureInfo culture, List<string> ingredients, List<DietType> diets, List<string> steps, TimeSpan Preperation, TimeSpan CookingTime, TimeSpan RestingTime)
         {
-
             return new Recipe(name, culture, ingredients, diets, steps, Preperation, CookingTime, RestingTime);
         }
-        public DietType getTypeFromString(string str, CultureInfo culture)
+        private DietType getTypeFromString(string str, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            if (CultureInfo.CurrentCulture != culture)
+            {
+                throw new ArgumentException("differing cultures are not supported yet");
+            }
+            if (str == Localisation.StringLocalisation.VeganDietName)
+            {
+                return DietType.Vegan;
+            }
+            else if (str == Localisation.StringLocalisation.VegetarienDietName)
+            {
+                return DietType.Vegetarian;
+            }
+            else if (str == Localisation.StringLocalisation.KetoDietName)
+            {
+                return DietType.Keto;
+            }
+            else
+            {
+                throw new ArgumentException("Unknown Diet:" + str);
+            }
+
         }
         public string GetStringForDietType(DietType type, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            if(CultureInfo.CurrentCulture != culture)
+            {
+                throw new ArgumentException("differing cultures are not supported yet");
+            }
+            switch (type)
+            {
+                case DietType.Vegan:
+                    return Localisation.StringLocalisation.VeganDietName;
+                case DietType.Vegetarian:
+                    return Localisation.StringLocalisation.VegetarienDietName;
+                case DietType.Keto:
+                    return Localisation.StringLocalisation.KetoDietName;
+                default:
+                    throw new ArgumentException("The given enum value is not part of the switch case yet");
+            }
         }
     }
 }

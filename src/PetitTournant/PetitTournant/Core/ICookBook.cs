@@ -7,11 +7,11 @@ namespace PetitTournant.Core
 {
     public interface ICookBook
     {
-        string Name { get; }
-        string Path { get; }
-        string ImagePath { get; }
-        CultureInfo Culture { get; }
-        List<IRecipe> Recipes {get;}
+        string Name { get; set; }
+        string Path { get; set; }
+        string ImagePath { get; set; }
+        CultureInfo Culture { get; set; }
+        List<IRecipe> Recipes { get; }
         void AddRecipe(IRecipe rep);
     }
 }
