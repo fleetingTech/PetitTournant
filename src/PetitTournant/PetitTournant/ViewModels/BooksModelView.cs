@@ -103,6 +103,7 @@ namespace PetitTournant.ViewModels
                    this.CookBookEditView = this.SelectedCookBook;
                    this.CookBookEditView.PropertyChanged += OnBookEditPorpertyChanged;
                    IsEditing = true;
+                   OnPropertyChanged(nameof(CookBookEditView));
                    RefreshCanExecutes();
                },
             canExecute: () =>
@@ -147,6 +148,7 @@ namespace PetitTournant.ViewModels
         {
             this.CookBookEditView.PropertyChanged -= OnBookEditPorpertyChanged;
             this.CookBookEditView = null;
+            OnPropertyChanged(nameof(CookBookEditView));
             IsEditing = false;
             RefreshCanExecutes();
         }
