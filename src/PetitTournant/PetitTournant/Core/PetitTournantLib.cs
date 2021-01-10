@@ -28,7 +28,7 @@ namespace PetitTournant.Core
         {
             return new Implementation.CookBook();
         }
-        public IRecipe CreateNewRecipe(string name, CultureInfo culture, List<string> ingredients, List<DietType> diets, List<string> steps, TimeSpan Preperation, TimeSpan CookingTime, TimeSpan RestingTime)
+        public IRecipe CreateNewRecipe(string name, CultureInfo culture, List<Tuple<decimal, string, string>> ingredients, List<DietType> diets, string steps, TimeSpan Preperation, TimeSpan CookingTime, TimeSpan RestingTime)
         {
             return new Recipe(name, culture, ingredients, diets, steps, Preperation, CookingTime, RestingTime);
         }
@@ -74,6 +74,6 @@ namespace PetitTournant.Core
                     throw new ArgumentException("The given enum value is not part of the switch case yet");
             }
         }
-        public IRecipe getRecipe() { return new Recipe(); }
+        public IRecipe GetEmptyRecipe() { return new Recipe(); }
     }
 }

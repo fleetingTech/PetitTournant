@@ -9,15 +9,15 @@ namespace PetitTournant.Core
     {
         ICookBook Parent { get; set; }
         string Name { get; set; }
-        CultureInfo culture { get; }
-        int servings { get; }
-        string servingName { get; }
-        List<Tuple<Decimal, string, string>> Ingredients { get; }
-        List<DietType> Diets { get; }
-        List<string> steps { get; }
-        TimeSpan PreperationTime { get; }
-        TimeSpan CookingTime { get; }
-        TimeSpan RestingTime { get; }
+        CultureInfo Culture { get; set; }
+        int Servings { get; set; }
+        string ServingName { get; set; }
+        List<Tuple<Decimal, string, string>> Ingredients { get; set; }
+        List<DietType> Diets { get; set; }
+        string Steps { get; set; }
+        TimeSpan PreperationTime { get; set; }
+        TimeSpan CookingTime { get; set; }
+        TimeSpan RestingTime { get; set; }
         TimeSpan TotalTime { get; }
     }
 }

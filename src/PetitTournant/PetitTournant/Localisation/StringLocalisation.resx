@@ -135,6 +135,9 @@
   <data name="KitchenKnowledgeName" xml:space="preserve">
     <value>Kitchen Knowledge</value>
   </data>
+  <data name="LabelIngredientsName" xml:space="preserve">
+    <value>Ingredients</value>
+  </data>
   <data name="LanguageName" xml:space="preserve">
     <value>Choose Language</value>
   </data>
@@ -146,6 +149,9 @@
   </data>
   <data name="OptionsName" xml:space="preserve">
     <value>Options</value>
+  </data>
+  <data name="RecipeName" xml:space="preserve">
+    <value>Recipe Name</value>
   </data>
   <data name="RecipesName" xml:space="preserve">
     <value>Recipes</value>

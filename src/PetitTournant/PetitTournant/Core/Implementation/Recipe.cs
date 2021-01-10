@@ -7,12 +7,12 @@ namespace PetitTournant.Core
 {
     class Recipe : IRecipe
     {
-        public Recipe(string name, CultureInfo culture, List<string> ingredients, List<DietType> diets, List<string> steps, TimeSpan preperation, TimeSpan cookingTime, TimeSpan restingTime)
+        public Recipe(string name, CultureInfo culture, List<Tuple<decimal, string, string>> ingredients, List<DietType> diets, string steps, TimeSpan preperation, TimeSpan cookingTime, TimeSpan restingTime)
         {
             this.Name = name;
-            this.culture = culture;
+            this.Culture = culture;
             this.Ingredients = Ingredients;
-            this.steps = steps;
+            this.Steps = steps;
             this.PreperationTime = preperation;
             this.CookingTime = cookingTime;
             this.RestingTime = restingTime;
@@ -21,28 +21,31 @@ namespace PetitTournant.Core
 
         public string Name { get;  set; }
 
-        public CultureInfo culture { get; private set; }
+        public CultureInfo Culture { get; set; }
 
-        public List<string> Ingredients { get; private set; }
+        public List<Tuple<decimal, string, string>> Ingredients { get; set; }
 
-        public List<DietType> Diets { get; private set; }
+        public List<DietType> Diets { get; set; }
 
-        public List<string> steps { get; private set; }
+        public string Steps { get; set; }
 
-        public TimeSpan PreperationTime { get; private set; }
+        public TimeSpan PreperationTime { get; set; }
 
-        public TimeSpan CookingTime { get; private set; }
+        public TimeSpan CookingTime { get; set; }
 
-        public TimeSpan RestingTime { get; private set; }
+        public TimeSpan RestingTime { get; set; }
 
         public TimeSpan TotalTime { get { return PreperationTime + CookingTime + RestingTime; } }
 
-		public int servings => throw new NotImplementedException();
+		public int Servings => throw new NotImplementedException();
 
-		public string servingName => throw new NotImplementedException();
+		public string ServingName => throw new NotImplementedException();
 
-		List<Tuple<decimal, string, string>> IRecipe.Ingredients => throw new NotImplementedException();
 
 		public ICookBook Parent { get;  set; }
-	}
+        CultureInfo IRecipe.Culture { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        int IRecipe.Servings { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        string IRecipe.ServingName { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+    }
 }

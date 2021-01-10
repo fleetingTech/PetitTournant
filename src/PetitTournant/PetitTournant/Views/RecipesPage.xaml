@@ -25,7 +25,7 @@
 	<ContentPage.Content>
 		<Grid Margin="10">
 			<Grid.BindingContext>
-				<local:RecipesViewModel />
+                <local:RecipesOverviewModel />
 			</Grid.BindingContext>
 
 
@@ -62,7 +62,7 @@
               IsEnabled="{Binding IsEditing}"
               IsVisible="{Binding IsEditVisible}">
 				<Grid >
-					<!-- Selected Book-->
+					<!-- Recipe Edit Area-->
 
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto" />
@@ -81,15 +81,27 @@
 					</StackLayout>
 
 					<StackLayout Orientation="Horizontal" Grid.Row="1">
-						<Label Text="Name: " IsVisible="{Binding IsEditVisible}" />
-						<Entry Text="{Binding CookBookEditView.BookName}" IsVisible="{Binding IsEditVisible}" />
+                        <Label Text="{Binding LabelRecipeName}" IsVisible="{Binding IsEditVisible}" />
+                        <Entry Text="{Binding RecipeEditView.RecipeName}" IsVisible="{Binding IsEditVisible}" />
 					</StackLayout>
 
 					<StackLayout Orientation="Horizontal" Grid.Row="2">
-						<Label Text="Path: " IsVisible="{Binding IsEditVisible}"/>
-						<Entry Text="{Binding CookBookEditView.BookPath}" IsVisible="{Binding IsEditVisible}"/>
+                        <Label Text="{Binding RecipeEditView.LabelIngredientsName}" IsVisible="{Binding IsEditVisible}"/>
+						<!-- TODO LIST ENTRY -->
 					</StackLayout>
-				</Grid>
+
+                    <StackLayout Orientation="Horizontal" Grid.Row="3">
+                        <!-- TODO Diets ENTRY -->
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" Grid.Row="4">
+                        <!-- TODO Categories ENTRY -->
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" Grid.Row="5">
+                        <!-- TODO Steps ENTRY -->
+                    </StackLayout>
+                </Grid>
 			</Grid>
 
 			<!-- Submit and Cancel Buttons -->

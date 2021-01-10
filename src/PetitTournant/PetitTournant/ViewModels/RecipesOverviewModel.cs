@@ -8,9 +8,10 @@ using Xamarin.Forms;
 
 namespace PetitTournant.ViewModels
 {
-	class RecipesViewModel : BaseViewModel
+	class RecipesOverviewModel : BaseViewModel
 	{
 		public string PageTitle => Localisation.StringLocalisation.RecipesName;
+		public string LabelRecipeName => Localisation.StringLocalisation.RecipeName + " :";
 
 		public ICookBook selectedBook { get; set; }
 		public RecipeViewModel RecipeEditView { get; set; }
@@ -36,7 +37,7 @@ namespace PetitTournant.ViewModels
 		}
 
 		public System.Collections.ObjectModel.ObservableCollection<RecipeViewModel> OpenRecipes { get; private set; }
-		public RecipesViewModel()
+		public RecipesOverviewModel()
 		{
 			this.OpenRecipes = new System.Collections.ObjectModel.ObservableCollection<RecipeViewModel>();
 			var lib = new PetitTournant.Core.PetitTournantLib();
@@ -64,7 +65,7 @@ namespace PetitTournant.ViewModels
 			return new Command(
 			   execute: () =>
 			   {
-				   this.RecipeEditView = new RecipeViewModel(this.GVM.Library.getRecipe());
+				   this.RecipeEditView = new RecipeViewModel(this.GVM.Library.GetEmptyRecipe(), GVM);
 				   this.RecipeEditView.PropertyChanged += OnRecipeEditPorpertyChanged;
 				   IsEditing = true;
 				   RefreshCanExecutes();
