@@ -15,8 +15,7 @@ namespace PetitTournant.Views
 		public RecipesPage ()
 		{
 			InitializeComponent ();
-            BindingContext = new ViewModels.RecipesViewModel();
-
+			
         }
 	}
 }

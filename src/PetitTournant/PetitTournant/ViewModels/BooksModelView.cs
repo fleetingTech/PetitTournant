@@ -16,12 +16,15 @@ namespace PetitTournant.ViewModels
     {
         public string PageTitle => Localisation.StringLocalisation.BookSelector;
         public string CreateCookBookText => Localisation.StringLocalisation.CreateCookBook;
-
+        public string DeleteCookBookText => Localisation.StringLocalisation.DeleteCookBookText;
+        public GlobalViewModels GVM{ get; } = GlobalViewModels.Instance;
         public ICommand CreateCookBookCommand { get; private set; }
         public ICommand EditCookBookCommand { get; private set; }
         public ICommand SubmitCoockBookCommand { private set; get; }
         public ICommand CancelCoockBookCommand { private set; get; }
-        public ICommand CookBookSelectionChangedCommand { get; private set; } 
+        public ICommand CookBookSelectionChangedCommand { get; private set; }
+        
+        public ICommand DeleteCookBookCommand { get; private set; }
 
         public BookModelView CookBookEditView { get; private set; }
 
@@ -43,19 +46,17 @@ namespace PetitTournant.ViewModels
             get { return this._isEditVisible; }
         }
 
-        private PetitTournantLib Lib; 
 
         public BooksModelView()
         {
-            this.Lib = new PetitTournantLib();
 
             this.IsEditing = false;
             this.CreateCookBookCommand = this.NewCreateCookBookCommand();
             this.EditCookBookCommand = this.NewEditCookBookCommand();
             this.SubmitCoockBookCommand = this.NewSubmitCookBookCommand();
             this.CancelCoockBookCommand = this.NewCancelCommand();
+            this.DeleteCookBookCommand = this.NewDeleteCookBookCommand();
         }
-        public System.Collections.ObjectModel.ObservableCollection<BookModelView> OpenBooks { get; } = new System.Collections.ObjectModel.ObservableCollection<BookModelView>();
 
         private BookModelView _selectedCookBook = null;
         public BookModelView SelectedCookBook
@@ -85,7 +86,7 @@ namespace PetitTournant.ViewModels
             return new Command(
                execute: () =>
                {
-                   this.CookBookEditView = new BookModelView(this.Lib.GetEmptyCookBook());
+                   this.CookBookEditView = new BookModelView(this.GVM.Library.GetEmptyCookBook());
                    this.CookBookEditView.PropertyChanged += OnBookEditPorpertyChanged;
                    IsEditing = true;
                    RefreshCanExecutes();
@@ -110,15 +111,32 @@ namespace PetitTournant.ViewModels
             {
                 return true;
             });
+        }        
+        private Command NewDeleteCookBookCommand()
+        {
+            return new Command(
+               execute: () =>
+               {
+                   if (this.GVM.OpenBooks.Contains(this.SelectedCookBook) == true)
+                   {
+                       this.GVM.OpenBooks.Remove(this.SelectedCookBook);
+                   }
+                   this.SelectedCookBook = null;
+                   RefreshCanExecutes();
+               },
+            canExecute: () =>
+            {
+                return (this.SelectedCookBook != null && this.IsEditing == false);
+            });
         }
         private Command NewSubmitCookBookCommand()
         {
             return new Command(
             execute: () =>
             {
-                if(this.OpenBooks.Contains(this.CookBookEditView) == false)
+                if(this.GVM.OpenBooks.Contains(this.CookBookEditView) == false)
                 {
-                    this.OpenBooks.Add(this.CookBookEditView);
+                    this.GVM.OpenBooks.Add(this.CookBookEditView);
                 }
 
                 this.DestroyBookEditView();

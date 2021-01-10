@@ -1,13 +1,149 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:PetitTournant.ViewModels"
              x:Class="PetitTournant.Views.RecipesPage"
-             Title="{Binding PageTitle}">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+             Title="Recipes">
+	<ContentPage.Resources>
+		<Style TargetType="Grid">
+			<Setter Property="VisualStateManager.VisualStateGroups">
+				<VisualStateGroupList>
+					<VisualStateGroup x:Name="CommonStates">
+						<VisualState x:Name="Normal" />
+						<VisualState x:Name="Selected">
+							<VisualState.Setters>
+								<Setter Property="BackgroundColor"
+                                        Value="CornflowerBlue" />
+							</VisualState.Setters>
+						</VisualState>
+					</VisualStateGroup>
+				</VisualStateGroupList>
+			</Setter>
+		</Style>
+	</ContentPage.Resources>
+
+	<ContentPage.Content>
+		<Grid Margin="10">
+			<Grid.BindingContext>
+				<local:RecipesViewModel />
+			</Grid.BindingContext>
+
+
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
+			
+			<StackLayout Grid.Row="0" Orientation="Horizontal">
+				
+				<!-- New Button -->
+				<Button Text="New"
+                
+                Command="{Binding AddNewRecipeToSelectedBook}"
+                HorizontalOptions="Start" IsEnabled="true"/>
+
+				<!-- Search Button-->
+				<Button Text="Advanced Search"
+
+                    IsEnabled="true"/>
+
+				<!-- Delete Button-->
+				<Button Text="Delete"
+
+                    IsEnabled="true"/>
+
+
+			</StackLayout>
+
+			<!-- Entry Form -->
+			<Grid Grid.Row="1"
+              IsEnabled="{Binding IsEditing}"
+              IsVisible="{Binding IsEditVisible}">
+				<Grid >
+					<!-- Selected Book-->
+
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="*" />
+					</Grid.ColumnDefinitions>
+
+					<StackLayout Orientation="Horizontal" Grid.Row="0">
+						<Label Text="Select Book:"/>
+						<Picker ItemsSource="{Binding GVM.OpenBooks}" SelectedItem="{Binding selectedBook}" ItemDisplayBinding="{Binding BookName}" />
+					</StackLayout>
+
+					<StackLayout Orientation="Horizontal" Grid.Row="1">
+						<Label Text="Name: " IsVisible="{Binding IsEditVisible}" />
+						<Entry Text="{Binding CookBookEditView.BookName}" IsVisible="{Binding IsEditVisible}" />
+					</StackLayout>
+
+					<StackLayout Orientation="Horizontal" Grid.Row="2">
+						<Label Text="Path: " IsVisible="{Binding IsEditVisible}"/>
+						<Entry Text="{Binding CookBookEditView.BookPath}" IsVisible="{Binding IsEditVisible}"/>
+					</StackLayout>
+				</Grid>
+			</Grid>
+
+			<!-- Submit and Cancel Buttons -->
+			<Grid Grid.Row="2">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+
+				<Button Text="Submit"
+                    Grid.Column="0"
+                    Command="{Binding SubmitRecipeCommand}"
+                    VerticalOptions="CenterAndExpand" 
+                        IsVisible="{Binding IsEditVisible}"/>
+
+				<Button Text="Cancel"
+                    Grid.Column="1"
+  
+                    VerticalOptions="CenterAndExpand"
+                        IsVisible="{Binding IsEditVisible}"/>
+			</Grid>
+
+			<Grid Grid.Row="3">
+				<!-- List of CookBooks -->
+				<CollectionView  SelectionMode="Single"
+                    ItemsSource="{Binding OpenRecipes}">
+					<CollectionView.ItemTemplate>
+						<DataTemplate>
+							<Grid Padding="10">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto" />
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto" />
+								</Grid.ColumnDefinitions>
+								<Image Grid.RowSpan="2"
+                                Source="{Binding recipeName}"
+                                Aspect="AspectFill"
+                                HeightRequest="60"
+                                WidthRequest="60" />
+								<Label Grid.Column="1"
+                                Text="{Binding recipeName}"
+                                FontAttributes="Bold" />
+								<Label Grid.Row="1"
+                                Grid.Column="1"
+                                Text="{Binding recipeName}"
+                                FontAttributes="Italic"
+                            VerticalOptions="End" />
+							</Grid>
+						</DataTemplate>
+					</CollectionView.ItemTemplate>
+				</CollectionView>
+			</Grid>
+
+		</Grid>
+	</ContentPage.Content>
 </ContentPage>

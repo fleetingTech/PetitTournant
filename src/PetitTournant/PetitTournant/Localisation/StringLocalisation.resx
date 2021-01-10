@@ -123,6 +123,9 @@
   <data name="CreateCookBook" xml:space="preserve">
     <value>Create a new Cookbook</value>
   </data>
+  <data name="DeleteCookBookText" xml:space="preserve">
+    <value>Delete Selected Book</value>
+  </data>
   <data name="EditCookBook" xml:space="preserve">
     <value>Edit selected Cookbook</value>
   </data>

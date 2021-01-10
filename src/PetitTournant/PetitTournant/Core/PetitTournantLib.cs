@@ -74,5 +74,6 @@ namespace PetitTournant.Core
                     throw new ArgumentException("The given enum value is not part of the switch case yet");
             }
         }
+        public IRecipe getRecipe() { return new Recipe(); }
     }
 }

@@ -46,8 +46,13 @@
                 <Button Text="EditCookBook"
                 Command="{Binding EditCookBookCommand}"
                     IsEnabled="{Binding IsCookBookSelected}"/>
-
-                <!-- Selected Book-->
+				
+				<!-- Delete Button-->
+				<Button Text="{Binding DeleteCookBookText}"
+                Command="{Binding DeleteCookBookCommand}"
+                    IsEnabled="{Binding IsCookBookSelected}"/>
+				
+				<!-- Selected Book-->
                 <Label Text="{x:Binding SelectedCookBook.BookName}"/>
             </StackLayout>
             
@@ -99,8 +104,9 @@
 
             <Grid Grid.Row="3">
                 <!-- List of CookBooks -->
+				
                 <CollectionView  SelectionMode="Single"
-                    ItemsSource="{Binding OpenBooks}"
+                    ItemsSource="{Binding GVM.OpenBooks}"
                     SelectedItem="{Binding SelectedCookBook, Mode=TwoWay}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>

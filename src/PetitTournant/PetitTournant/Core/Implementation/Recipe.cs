@@ -17,8 +17,9 @@ namespace PetitTournant.Core
             this.CookingTime = cookingTime;
             this.RestingTime = restingTime;
         }
+        public Recipe() { }
 
-        public string Name { get; private set; }
+        public string Name { get;  set; }
 
         public CultureInfo culture { get; private set; }
 
@@ -35,5 +36,13 @@ namespace PetitTournant.Core
         public TimeSpan RestingTime { get; private set; }
 
         public TimeSpan TotalTime { get { return PreperationTime + CookingTime + RestingTime; } }
-    }
+
+		public int servings => throw new NotImplementedException();
+
+		public string servingName => throw new NotImplementedException();
+
+		List<Tuple<decimal, string, string>> IRecipe.Ingredients => throw new NotImplementedException();
+
+		public ICookBook Parent { get;  set; }
+	}
 }
