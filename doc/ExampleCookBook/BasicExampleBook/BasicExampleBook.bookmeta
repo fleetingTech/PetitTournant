@@ -1,0 +1,13 @@
+Basic Example Book
+format-version: 1.0
+
+Description:
+A short test cookbook, with a recipe refrencing two others.
+
+Display-Image-Path:"/images/basicExampleBookDisplay.jpg"
+
+Recipies:
+Filename: Recipename; Refrences; Ingredients; Diets; Categories; Total Time
+Crepes_Suzette: "Crêpes Suzette";Basic_Crepes 1, Creme_Chantilly 1;"70" "g" "caster sugar", "200" "ml" "orange juice", "2-3" "" "oranges, filets, zest, and juice", "1" "tbsp" "lemon juice", "50" "ml" "Grand Marnier or Cointreau", "50" "g" "unsalted butter";ovo-lacto;"sweet";35 min;
+Basic_Crepes: "Basic Crêpes";;10 g "Sugar", 1 "Egg", 25 g "butter (liquid)", "100" "g" "Flour", "1" "pinch of" "Salt", "oil for frying";ovo-lacto;"sweet";40 min;
+Creme_Chantilly: "Crême Chantilly";;"250" "g" "cream", "40" "g" "sugar", "1" "Vanilla Pod";ovo-lacto;"sweet";5 min;
