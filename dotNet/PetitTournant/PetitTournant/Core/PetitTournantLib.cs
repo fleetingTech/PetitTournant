@@ -15,9 +15,13 @@ namespace PetitTournant.Core
             this.SupportedCookBookFormats = new List<string> { "cookbook" };
         }
 
-        public ICookBook LoadCookBookFromStream(Stream File)
+        public ICookBook LoadCookBookFromFileStream(Stream File)
         {
             var archive = new System.IO.Compression.ZipArchive(File);
+            return null;
+        }
+        public ICookBook LoadCookBookFromFolder(string path)
+        {
             return null;
         }
         public ICookBook CreateCookBook(string name, CultureInfo culture, string path)
