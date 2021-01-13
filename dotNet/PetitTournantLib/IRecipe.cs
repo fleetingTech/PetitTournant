@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-namespace PetitTournant.Core
+namespace PetitTournant.Lib
 {
     public interface IRecipe
     {
@@ -13,7 +13,7 @@ namespace PetitTournant.Core
         int Servings { get; set; }
         string ServingName { get; set; }
         List<Tuple<Decimal, string, string>> Ingredients { get; set; }
-        List<DietType> Diets { get; set; }
+        List<IDiet> Diets { get; set; }
         string Steps { get; set; }
         TimeSpan PreperationTime { get; set; }
         TimeSpan CookingTime { get; set; }

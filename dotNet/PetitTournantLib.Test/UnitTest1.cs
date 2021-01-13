@@ -1,10 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace PetitTournantLib.Test
+namespace PetitTournant.Lib.Test
 {
     [TestClass]
-    public class UnitTest1
+    public class DietType
     {
         [TestMethod]
         public void TestMethod1()

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-namespace PetitTournant.Core.Implementation
+namespace PetitTournant.Lib.Implementation
 {
     internal class CookBook : ICookBook
     {

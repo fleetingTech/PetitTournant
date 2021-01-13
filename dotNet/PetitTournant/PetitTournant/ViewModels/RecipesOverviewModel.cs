@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Windows.Input;
-using PetitTournant.Core;
+using PetitTournant.Lib;
 using Xamarin.Forms;
 
 namespace PetitTournant.ViewModels
@@ -40,7 +40,6 @@ namespace PetitTournant.ViewModels
 		public RecipesOverviewModel()
 		{
 			this.OpenRecipes = new System.Collections.ObjectModel.ObservableCollection<RecipeViewModel>();
-			var lib = new PetitTournant.Core.PetitTournantLib();
 			this.AddNewRecipeToSelectedBook = this.NewAddNewRecipeToSelectedBook();
 			this.SubmitRecipeCommand = this.NewSubmitRecipeCommand();
 		}

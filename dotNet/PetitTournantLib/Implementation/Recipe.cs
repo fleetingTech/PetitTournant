@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-namespace PetitTournant.Core
+namespace PetitTournant.Lib.Implementation
 {
     class Recipe : IRecipe
     {
-        public Recipe(string name, CultureInfo culture, List<Tuple<decimal, string, string>> ingredients, List<DietType> diets, string steps, TimeSpan preperation, TimeSpan cookingTime, TimeSpan restingTime)
+        public Recipe(string name, CultureInfo culture, List<Tuple<decimal, string, string>> ingredients, List<IDiet> diets, string steps, TimeSpan preperation, TimeSpan cookingTime, TimeSpan restingTime)
         {
             this.Name = name;
             this.Culture = culture;
@@ -25,7 +25,7 @@ namespace PetitTournant.Core
 
         public List<Tuple<decimal, string, string>> Ingredients { get; set; }
 
-        public List<DietType> Diets { get; set; }
+        public List<IDiet> Diets { get; set; }
 
         public string Steps { get; set; }
 

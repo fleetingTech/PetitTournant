@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-namespace PetitTournant.Core
+namespace PetitTournant.Lib.Implementation.FileFormatV1
 {
-    public enum DietType
+    class CookBookLoader : ICookBookLoader
     {
-        Vegan,
-        Vegetarian,
-        Keto
+
     }
 }

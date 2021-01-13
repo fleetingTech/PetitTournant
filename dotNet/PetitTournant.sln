@@ -11,9 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetitTournant.UWP", "PetitT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetitTournant", "PetitTournant\PetitTournant\PetitTournant.csproj", "{95CCFBC5-3AF6-4CEF-BAB9-98F56B29D223}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetitTournantLib", "PetitTournantLib\PetitTournantLib.csproj", "{20DA8994-3F3C-4FF1-A67D-1FC8999619B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetitTournant.Lib", "PetitTournantLib\PetitTournant.Lib.csproj", "{20DA8994-3F3C-4FF1-A67D-1FC8999619B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetitTournantLib.Test", "PetitTournantLib.Test\PetitTournantLib.Test.csproj", "{7AF337FB-5F13-442A-A25F-A891FD513671}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetitTournant.Lib.Test", "PetitTournantLib.Test\PetitTournant.Lib.Test.csproj", "{7AF337FB-5F13-442A-A25F-A891FD513671}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

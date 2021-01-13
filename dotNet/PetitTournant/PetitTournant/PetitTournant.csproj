@@ -14,6 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\PetitTournantLib\PetitTournant.Lib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Localisation\StringLocalisation.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

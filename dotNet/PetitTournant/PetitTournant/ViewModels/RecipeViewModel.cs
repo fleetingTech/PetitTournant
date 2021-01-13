@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Text;
-using PetitTournant.Core;
+using PetitTournant.Lib;
 
 namespace PetitTournant.ViewModels
 {
@@ -33,7 +33,7 @@ namespace PetitTournant.ViewModels
             this.Servings = source.Servings;
             this.servingName = source.ServingName;
             this.Ingredients = new ObservableCollection<Tuple<decimal, string, string>>(source.Ingredients);
-            this.Diets = new ObservableCollection<DietType>(source.Diets);
+            this.Diets = new ObservableCollection<IDiet>(source.Diets);
             this.steps = source.Steps;
             this.recipe = source;
         }
@@ -56,7 +56,7 @@ namespace PetitTournant.ViewModels
         private int servings;
         private string servingName;
         private ObservableCollection<Tuple<decimal, string, string>> ingredients;
-        private ObservableCollection<DietType> diets;
+        private ObservableCollection<IDiet> diets;
         private string steps;
         private CultureInfo culture;
 
@@ -147,7 +147,7 @@ namespace PetitTournant.ViewModels
             OnPropertyChanged(nameof(Ingredients));
             isDirty = true;
         }
-        public ObservableCollection<DietType> Diets
+        public ObservableCollection<IDiet> Diets
         {
             get => diets;
             set
@@ -202,7 +202,7 @@ namespace PetitTournant.ViewModels
                 this.recipe.Servings = Servings;
                 this.recipe.ServingName = ServingName;
                 this.recipe.Ingredients = new List<Tuple<Decimal, string, string>>(Ingredients);
-                this.recipe.Diets = new List<DietType>(Diets);
+                this.recipe.Diets = new List<IDiet>(Diets);
                 this.recipe.Steps = Steps;
                 this.recipe.PreperationTime = PreperationTime;
                 this.recipe.CookingTime = CookingTime;

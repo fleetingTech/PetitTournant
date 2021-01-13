@@ -10,7 +10,7 @@ namespace PetitTournant.ViewModels
 		private GlobalViewModels() { }
 		public static GlobalViewModels Instance { get; } = new GlobalViewModels();
 
-		internal PetitTournant.Core.PetitTournantLib Library { get; } = new Core.PetitTournantLib();
+		internal PetitTournant.Lib.PetitTournantFacade Library { get; } = new PetitTournant.Lib.PetitTournantFacade();
 
 	}
 }

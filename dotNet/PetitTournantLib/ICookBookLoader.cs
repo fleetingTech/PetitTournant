@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PetitTournant.Core
+namespace PetitTournant.Lib
 {
     interface ICookBookLoader
     {
