@@ -19,6 +19,11 @@ namespace PetitTournant.Lib.Implementation
         }
         public Recipe() { }
 
+        public Recipe(ICookBookFile File)
+        {
+
+        }
+
         public string Name { get;  set; }
 
         public CultureInfo Culture { get; set; }

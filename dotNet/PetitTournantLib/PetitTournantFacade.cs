@@ -1,15 +1,21 @@
 ﻿using PetitTournant.Lib.Implementation;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.IO.Compression;
 using System.Text;
 
 namespace PetitTournant.Lib
 {
     public class PetitTournantFacade
     {
+        public const string RecipeExtension = ".recipe";
+        public const string KnowledgeExtension = ".knowledge";
         public List<string> SupportedCookBookFormats { get; private set; }
+
+        private ICookBookLoader loader = new Implementation.CookBookLoader();
 
         public PetitTournantFacade()
         {
@@ -25,12 +31,27 @@ namespace PetitTournant.Lib
 
         public ICookBook LoadCookBookFromFileStream(Stream File)
         {
+            if(File == null)
+            {
+                throw new IOException("Invalid path (Directory not found)");
+            }
             var archive = new System.IO.Compression.ZipArchive(File);
-            return null;
+
+            Mediamanger mm = new Mediamanger(archive);
+
+            CookBook cb = CookBook.Load(mm);
+            return cb;
         }
         public ICookBook LoadCookBookFromFolder(string path)
         {
-            return null;
+            if(!Directory.Exists(path))
+            {
+                throw new IOException("Invalid path (Directory not found)");
+            }
+
+            Mediamanger mm = new Mediamanger(path);
+            CookBook cb = CookBook.Load(mm);
+            return cb;
         }
         public ICookBook CreateCookBook(string name, CultureInfo culture, string path)
         {

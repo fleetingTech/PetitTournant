@@ -19,5 +19,7 @@ namespace PetitTournant.Lib
         TimeSpan CookingTime { get; set; }
         TimeSpan RestingTime { get; set; }
         TimeSpan TotalTime { get; }
+
+        List<string> GetRefrences();
     }
 }
