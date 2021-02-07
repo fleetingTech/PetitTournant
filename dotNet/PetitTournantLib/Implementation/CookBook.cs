@@ -1,45 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace PetitTournant.Lib.Implementation
 {
-    internal class CookBook : ICookBook
+    internal class CookBook : ICookBook, IAsyncInitialization
     {
-        public string Name { get;  set; }
+        public string Name { get; set; }
 
-        public string Path { get;  set; }
+        public string Path { get; set; }
 
-        public string ImagePath { get;  set; }
+        public string ImagePath { get; set; }
 
-        public CultureInfo Culture { get;  set; }
+        public CultureInfo Culture { get; set; }
 
         public List<IRecipe> Recipes { get; } = new List<IRecipe>();
 
         private MetaFile _metaFile = null;
-        public MetaFile MetaFile 
-        { 
-            get { return this._metaFile; }
-            internal set 
-            { 
-                this.IsMetaFileOutOfSync = ValidateMetaFileAgainstData(value);
-                this._metaFile= value;
+        public MetaFile MetaFile
+        {
+            get => _metaFile;
+            internal set
+            {
+                IsMetaFileOutOfSync = ValidateMetaFileAgainstData(value);
+                _metaFile = value;
             }
         }
         public bool IsMetaFileOutOfSync { get; internal set; }
 
+        public Task Initialization { get; private set; }
 
         public void AddRecipe(IRecipe rep)
         {
-            this.Recipes.Add(rep);
+            Recipes.Add(rep);
         }
 
         public CookBook(string Name, string path, CultureInfo culture)
         {
             this.Name = Name;
-            this.Path = path;
-            this.Culture = culture;
+            Path = path;
+            Culture = culture;
         }
 
         internal void AddRecipe(ICookBookFile f)
@@ -47,17 +49,18 @@ namespace PetitTournant.Lib.Implementation
             AddRecipe(new Recipe(f));
         }
 
-        internal static CookBook Load(Mediamanger mm)
+        internal static async Task<CookBook> Load(Mediamanger mm, CancellationToken token)
         {
-            throw new NotImplementedException();
+            await mm.Initialization.ConfigureAwait(false);
+
         }
 
         public CookBook()
         {
-            this.Name = string.Empty;
-            this.Path = string.Empty;
-            this.ImagePath = string.Empty;
-            this.Culture = null;
+            Name = string.Empty;
+            Path = string.Empty;
+            ImagePath = string.Empty;
+            Culture = null;
         }
 
         internal void AddKnowledge(ICookBookFile f)

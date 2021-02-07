@@ -11,5 +11,6 @@ namespace PetitTournant.Lib
         Stream Content { get; }
         string Extension { get; }
         void IncrementRefrence();
+        int RefrenceCount { get; }
     }
 }

@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PetitTournant.Utils\PetitTournant.Utils.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Localistation\DietType.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

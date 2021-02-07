@@ -6,6 +6,8 @@ using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace PetitTournant.Lib
 {
@@ -14,8 +16,6 @@ namespace PetitTournant.Lib
         public const string RecipeExtension = ".recipe";
         public const string KnowledgeExtension = ".knowledge";
         public List<string> SupportedCookBookFormats { get; private set; }
-
-        private ICookBookLoader loader = new Implementation.CookBookLoader();
 
         public PetitTournantFacade()
         {
@@ -29,7 +29,7 @@ namespace PetitTournant.Lib
             this.KnownDiets = knownDiets;
         }
 
-        public ICookBook LoadCookBookFromFileStream(Stream File)
+        public async Task<ICookBook> LoadCookBookFromFileStream(Stream File, CancellationToken token)
         {
             if(File == null)
             {
@@ -37,21 +37,19 @@ namespace PetitTournant.Lib
             }
             var archive = new System.IO.Compression.ZipArchive(File);
 
-            Mediamanger mm = new Mediamanger(archive);
+            Mediamanger mm = new Mediamanger(archive, token);
 
-            CookBook cb = CookBook.Load(mm);
-            return cb;
+            return await CookBook.Load(mm, token);
         }
-        public ICookBook LoadCookBookFromFolder(string path)
+        public async Task<ICookBook> LoadCookBookFromFolder(string path, CancellationToken token)
         {
             if(!Directory.Exists(path))
             {
                 throw new IOException("Invalid path (Directory not found)");
             }
 
-            Mediamanger mm = new Mediamanger(path);
-            CookBook cb = CookBook.Load(mm);
-            return cb;
+            Mediamanger mm = new Mediamanger(path, token);
+            return await CookBook.Load(mm, token);
         }
         public ICookBook CreateCookBook(string name, CultureInfo culture, string path)
         {

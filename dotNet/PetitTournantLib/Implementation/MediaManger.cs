@@ -1,98 +1,101 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace PetitTournant.Lib.Implementation
 {
-    class Mediamanger
+    class Mediamanger : IAsyncInitialization
     {
         private ZipArchive archive = null;
         private string sourceFolder = null;
 
         public List<ICookBookFile> Files { get; private set; } = new List<ICookBookFile>();
 
-        public List<IRecipe> Recipes { get; private set; } = new List<IRecipe>();
-        public List<IKnowledge> Knowledge { get; private set; } = new List<IKnowledge>();
+        public Dictionary<string, IRecipe> Recipes { get; private set; } = new Dictionary<string, IRecipe>();
+        public Dictionary<string, IKnowledge> Knowledge { get; private set; } = new Dictionary<string, IKnowledge>();
         public Dictionary<string, ICookBookFile> AllOtherFiles { get; private set; } = new Dictionary<string, ICookBookFile>();
         public MetaFile MF { get; private set; } = null;
 
-        public Mediamanger(ZipArchive archive)
+        public Task Initialization { get; private set; }
+
+        public Mediamanger(ZipArchive archive, CancellationToken token)
         {
             this.archive = archive;
             var list = new List<ICookBookFile>();
 
             List<ZipArchiveEntry> uae = new List<ZipArchiveEntry>(archive.Entries);
 
-            uae.ForEach(e => { list.Add(new CookBookFile(e)); });
-            BuildIndex();
+            
+            Initialization = Initialize(uae, token);
         }
 
-        public Mediamanger(string path)
+        public Mediamanger(string path, CancellationToken token)
         {
             this.sourceFolder = path;
             string[] files = Directory.GetFiles(path);
 
             List<string> fileList = new List<string>(files);
-            fileList.ForEach(e => { SortFile(new CookBookFile(e)); });
-            BuildIndex();
+            Initialization = Initialize(fileList, token);
+
         }
 
-        private void BuildIndex()
+        private async Task Initialize(List<string> paths, CancellationToken token)
         {
-            foreach(var r in Recipes)
-            {
-                List<string> refs = r.GetRefrences();
-                foreach(var rf in refs)
-                {
-                    AllOtherFiles[rf].IncrementRefrence();
-                }
-            }
-            foreach (var k in Knowledge)
-            {
-                List<string> refs = k.GetRefrences();
-                foreach (var rf in refs)
-                {
-                    AllOtherFiles[rf].IncrementRefrence();
-                }
-            }
+            Task[] inits = paths.Select(p => CreateSpecificType(new CookBookFile(p), token)).ToArray();
+
+
+
+            await Task.WhenAll(inits).ConfigureAwait(false);
         }
 
+        private async Task Initialize(List<ZipArchiveEntry> entries, CancellationToken token)
+        {
+            Task[] inits = entries.Select(p => CreateSpecificType(new CookBookFile(p), token)).ToArray();
 
+
+
+            await Task.WhenAll(inits).ConfigureAwait(false);
+        }
         private const string MetaExtension = ".bookmeta";
-
-        private void SortFile(ICookBookFile File)
+        private Task CreateSpecificType(CookBookFile file, CancellationToken token)
         {
-            this.Files.Add(File);
 
-            switch (File.Extension)
-            {
-                case PetitTournantFacade.RecipeExtension:
-                    {
-                        Recipes.Add(new Recipe(File));
-                        break;
-                    }
-                case PetitTournantFacade.KnowledgeExtension:
-                    {
-                        Knowledge.Add(new Knowledge(File));
-                        break;
-                    }
-                case MetaExtension:
-                    {
-                        if (this.MF != null)
+                switch (file.Extension)
+                {
+                    case PetitTournantFacade.RecipeExtension:
                         {
-                            throw new Exception("More then one metafile is present.");
+                            Recipe r = new Recipe(file, token);
+                            Recipes.Add(file.FullName, r);
+                            return r.Initialization;
                         }
-                        this.MF = new MetaFile(File);
-                        break;
-                    }
-                default:
-                    {
-                        AllOtherFiles.Add(File.FullName, File);
-                        break;
-                    }
+                    case PetitTournantFacade.KnowledgeExtension:
+                        {
+                            Knowledge k = new Knowledge(file, token);
+                            Knowledge.Add(file.FullName, k);
+                            return k.Initialization;
+                        }
+                    case MetaExtension:
+                        {
+                            if (this.MF != null)
+                            {
+                                throw new Exception("More then one metafile is present.");
+                            }
+                            this.MF = new MetaFile(file, token);
+                            return this.MF.Initialization;
+                        }
+                    default:
+                        {
+                            AllOtherFiles.Add(file.FullName, file);
+                            return null;
+                        }
+                }
+
             }
-        }
     }
 }
